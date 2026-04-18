@@ -2,15 +2,17 @@ from django.shortcuts import render
 
 from .forms import ContestForm
 
+from .models import Contest
+
 
 def proposal(request):
-    form = ContestForm(request.GET or None)
+    form = ContestForm(request.POST or None)
     context = {'form':form}
-    # if form.is_valid():
-    #     title = form.cleaned_data['title']
-    #     context.update({'title':title})
+    if form.is_valid():
+        form.save()
     return render(request, 'contest/form.html', context)
 
-
-# def accepted(request):
-#     return render(request, 'contest/proposal_accepted.html')
+def proposal_list(request):
+    list = Contest.objects.all().order_by('id')
+    context = {'list': list}
+    return render(request, 'contest/contest_list.html', context)
