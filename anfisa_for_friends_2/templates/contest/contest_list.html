@@ -6,9 +6,13 @@
 
 {% block content %}
   {% for item in list %}
-    <div> <!-- Обернём каждую запись в тег div -->
-      <div> <!-- Текст обернём в отдельный вложенный div -->
-        {{ item.id }}, {{ item.title }}, {{ item.price }}, {{ item.description }}, {{ item.comment }},
+    <div>
+      <div>
+        {{ item.id }}, {{ item.title }}, {{ item.price }}, {{ item.description }}, {{ item.comment }}
+        <br>
+        <a href="{% url 'contest:edit' item.id %}">Редактировать заявку</a>
+        |
+        <a href="{% url 'contest:delete' item.id %}">Удалить заявку</a>
       </div>
       {% if not forloop.last %}
         <hr>
